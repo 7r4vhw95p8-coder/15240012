@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f7f3ee" />
+  <title>月光來信｜每日療癒運勢</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: { ink: '#353342', muted: '#858092', cream: '#f7f3ee', lilac: '#dcd4f2', rose: '#f1d9d7', sage: '#dce8dd' },
+        fontFamily: { sans: ['DM Sans','Noto Serif TC','sans-serif'], serif: ['Noto Serif TC','serif'] }
+      }}
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'DM Sans','Noto Serif TC',sans-serif; background:#f7f3ee; color:#353342; }
+    .serif { font-family:'Noto Serif TC',serif; }
+    .grain:before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.14; z-index:20; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.17'/%3E%3C/svg%3E"); }
+    .glass { background:rgba(255,255,255,.66); border:1px solid rgba(255,255,255,.85); box-shadow:0 18px 55px rgba(73,62,89,.07); backdrop-filter:blur(18px); }
+    .orb { position:absolute; border-radius:999px; filter:blur(1px); pointer-events:none; }
+    .card-glow { box-shadow:0 25px 70px rgba(115,94,151,.19), inset 0 0 0 1px rgba(255,255,255,.8); }
+    .drawn { animation: rise .8s cubic-bezier(.2,.8,.2,1) both; }
+    @keyframes rise { from { opacity:0; transform:translateY(18px) scale(.97); } to { opacity:1; transform:translateY(0) scale(1); } }
+    .shimmer { background:linear-gradient(110deg,#f0eafa 8%,#fff 18%,#f0eafa 33%); background-size:200% 100%; animation:shine 1.1s linear infinite; }
+    @keyframes shine { to { background-position-x:-200%; } }
+    .sparkle { animation:float 3s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+    .mood.active { background:#e9e2f7; border-color:#b9a9dd; color:#5d4e7f; box-shadow:0 5px 15px #dcd4f266; }
+    button { transition:transform .2s, box-shadow .2s, background .2s; }
+    button:active { transform:scale(.97); }
+    .soft-scroll::-webkit-scrollbar { width:5px; }
+    .soft-scroll::-webkit-scrollbar-thumb { background:#d9d1e5; border-radius:8px; }
+    @media (prefers-reduced-motion: reduce) { *,*:before,*:after { animation-duration:.01ms!important; transition-duration:.01ms!important; } }
+  </style>
+</head>
+<body class="grain min-h-screen overflow-x-hidden">
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="orb w-72 h-72 bg-[#e8def7]/70 -top-28 -left-20"></div>
+    <div class="orb w-96 h-96 bg-[#f1d9d7]/60 top-1/3 -right-44"></div>
+    <div class="orb w-72 h-72 bg-[#dce8dd]/70 -bottom-36 left-1/4"></div>
+  </div>
+
+  <main class="relative max-w-6xl mx-auto px-5 sm:px-8 pb-16">
+    <header class="flex items-center justify-between py-7">
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-2xl bg-[#e8e0f5] flex items-center justify-center text-xl shadow-sm">☾</div>
+        <div><div class="serif font-semibold tracking-[.16em] text-[15px]">月光來信</div><div class="text-[9px] tracking-[.24em] text-muted uppercase mt-0.5">A little note for your soul</div></div>
+      </a>
+      <div class="hidden sm:flex items-center gap-2 text-xs text-muted bg-white/60 border border-white rounded-full px-4 py-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#9db99e]"></span>
+        <span id="todayDate"></span>
+      </div>
+      <a href="#journal" class="text-xs text-muted hover:text-ink transition">心情日記 ↗</a>
+    </header>
+
+    <section class="text-center pt-8 sm:pt-14 pb-10 relative">
+      <div class="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-white/60 border border-white text-[11px] tracking-[.18em] text-[#817493] mb-6">
+        <span>✧</span> YOUR DAILY MOMENT OF CALM <span>✧</span>
+      </div>
+      <div class="absolute top-12 left-[12%] text-[#c5b7dc] text-2xl sparkle hidden sm:block">✧</div>
+      <div class="absolute top-28 right-[13%] text-[#d8b7b4] text-xl sparkle hidden sm:block" style="animation-delay:1s">✦</div>
+      <h1 class="serif text-4xl sm:text-6xl leading-[1.3] font-medium tracking-[.08em]">今天的你，<br class="sm:hidden"><span class="text-[#9b88bd]">值得一份溫柔。</span></h1>
+      <p class="text-muted text-sm sm:text-base mt-5 leading-8">讓一張小小的牌卡，替今天的心情留一盞燈。<br class="hidden sm:block">不預言命運，只陪你找到此刻需要的力量。</p>
+    </section>
+
+    <section class="grid lg:grid-cols-[.88fr_1.12fr] gap-6 lg:gap-8 items-start">
+      <div class="glass rounded-[30px] p-6 sm:p-8">
+        <div class="flex items-center justify-between mb-7">
+          <div><p class="text-[10px] tracking-[.2em] text-[#a092b5] uppercase">01 / Set your intention</p><h2 class="serif text-xl mt-2">先和自己打聲招呼</h2></div>
+          <span class="text-2xl">🌙</span>
+        </div>
+        <label class="text-xs text-muted block mb-2" for="nameInput">今天想怎麼稱呼你？</label>
+        <input id="nameInput" maxlength="18" placeholder="輸入你的名字（選填）" class="w-full rounded-2xl bg-white/80 border border-[#e9e3ee] px-4 py-3.5 text-sm outline-none focus:ring-2 focus:ring-[#d8cdec] placeholder:text-[#b7b1bf]">
+        <label class="text-xs text-muted block mt-5 mb-2">此刻的心情比較像⋯⋯</label>
+        <div id="moodOptions" class="grid grid-cols-3 gap-2">
+          <button class="mood active border border-[#e9e3ee] rounded-xl py-3 text-xs" data-mood="平靜">☁️<span class="block mt-1">平靜</span></button>
+          <button class="mood border border-[#e9e3ee] bg-white/70 rounded-xl py-3 text-xs" data-mood="期待">🌱<span class="block mt-1">期待</span></button>
+          <button class="mood border border-[#e9e3ee] bg-white/70 rounded-xl py-3 text-xs" data-mood="疲憊">🫧<span class="block mt-1">疲憊</span></button>
+          <button class="mood border border-[#e9e3ee] bg-white/70 rounded-xl py-3 text-xs" data-mood="開心">☀️<span class="block mt-1">開心</span></button>
+          <button class="mood border border-[#e9e3ee] bg-white/70 rounded-xl py-3 text-xs" data-mood="迷惘">🌫️<span class="block mt-1">迷惘</span></button>
+          <button class="mood border border-[#e9e3ee] bg-white/70 rounded-xl py-3 text-xs" data-mood="需要鼓勵">💗<span class="block mt-1">需要鼓勵</span></button>
+        </div>
+        <label class="text-xs text-muted block mt-5 mb-2" for="wishInput">留一個小小的願望給今天</label>
+        <textarea id="wishInput" rows="3" maxlength="90" placeholder="例如：希望今天能更相信自己⋯⋯" class="w-full resize-none rounded-2xl bg-white/80 border border-[#e9e3ee] px-4 py-3.5 text-sm outline-none focus:ring-2 focus:ring-[#d8cdec] placeholder:text-[#b7b1bf]"></textarea>
+        <button id="drawBtn" class="w-full mt-6 rounded-2xl py-4 text-white text-sm tracking-[.12em] font-medium bg-gradient-to-r from-[#9e8cbd] via-[#a99bc9] to-[#c6a9bd] shadow-[0_12px_25px_rgba(157,137,188,.25)] hover:shadow-[0_15px_30px_rgba(157,137,188,.35)] hover:-translate-y-0.5">
+          <span id="drawLabel">✧　抽取今日療癒指引　✧</span>
+        </button>
+        <p class="text-center text-[10px] text-[#aaa3b1] mt-3">每一次翻牌，都是重新照顧自己的開始。</p>
+      </div>
+
+      <div class="relative">
+        <div id="emptyState" class="glass rounded-[30px] min-h-[520px] flex flex-col items-center justify-center text-center p-8 overflow-hidden">
+          <div class="absolute w-64 h-64 rounded-full bg-[#e8e0f5]/60 blur-3xl"></div>
+          <div class="relative w-48 h-64 rounded-[25px] border border-white/90 bg-gradient-to-br from-[#dcd3ef] via-[#eee7f3] to-[#f1d9d7] shadow-[0_25px_55px_rgba(120,101,151,.18)] flex items-center justify-center rotate-[-4deg]">
+            <div class="absolute inset-3 rounded-[19px] border border-white/70"></div>
+            <div class="text-center relative"><div class="text-5xl mb-4">☾</div><div class="serif text-[#75688b] tracking-[.22em] text-sm">今日指引</div><div class="text-[#a69ab7] text-[9px] tracking-[.25em] mt-2">A GENTLE REMINDER</div><div class="text-xl text-white/80 mt-5">✧　✦　✧</div></div>
+          </div>
+          <h3 class="serif text-lg mt-10">你的今日訊息，正在等你。</h3>
+          <p class="text-xs text-muted mt-2 leading-6">深呼吸，想著此刻的自己，<br>按下左側按鈕，翻開專屬於你的牌卡。</p>
+        </div>
+
+        <div id="loadingState" class="hidden glass rounded-[30px] min-h-[520px] flex-col items-center justify-center text-center p-8">
+          <div class="w-24 h-24 rounded-full bg-[#e9e1f4] flex items-center justify-center text-4xl animate-pulse">✧</div>
+          <p class="serif mt-7 text-lg">正在為你收集宇宙的小小善意⋯⋯</p>
+          <p class="text-xs text-muted mt-2">請給自己一點點時間</p>
+          <div class="w-40 h-1.5 bg-[#e9e2ef] rounded-full mt-7 overflow-hidden"><div class="h-full w-1/2 rounded-full shimmer"></div></div>
+        </div>
+
+        <div id="resultWrap" class="hidden">
+          <div id="fortuneCard" class="relative overflow-hidden rounded-[30px] p-7 sm:p-9 min-h-[520px] card-glow bg-gradient-to-br from-[#e8e1f4] via-[#f7edf0] to-[#e4ece5]">
+            <div class="absolute -top-20 -right-14 w-64 h-64 rounded-full bg-white/35 blur-2xl"></div>
+            <div class="absolute -bottom-24 -left-16 w-64 h-64 rounded-full bg-[#c9bbdf]/30 blur-2xl"></div>
+            <div class="relative">
+              <div class="flex justify-between items-start">
+                <div><p class="text-[10px] tracking-[.22em] text-[#887b9d]">YOUR DAILY ORACLE</p><p id="cardDate" class="text-[10px] text-[#9a91a4] mt-1"></p></div>
+                <span class="text-2xl text-[#a293b9]">✧</span>
+              </div>
+              <div class="text-center py-7">
+                <div id="cardSymbol" class="text-5xl sparkle">🌙</div>
+                <p id="cardCategory" class="text-[10px] tracking-[.3em] text-[#91849e] mt-4">GENTLE GUIDANCE</p>
+                <h2 id="cardTitle" class="serif text-3xl sm:text-4xl mt-3 text-[#514a61]">慢慢來，也是一種前進</h2>
+                <div class="flex justify-center items-center gap-3 mt-5"><span class="h-px w-8 bg-[#c2b5d0]"></span><span class="text-[#a092b2]">✦</span><span class="h-px w-8 bg-[#c2b5d0]"></span></div>
+                <p id="cardQuote" class="serif text-sm leading-8 text-[#6f667d] max-w-sm mx-auto mt-5"></p>
+              </div>
+              <div class="grid grid-cols-3 gap-2 border-t border-white/60 pt-5">
+                <div class="text-center"><p class="text-[9px] text-[#95899f] tracking-wider">今日能量</p><p id="cardScore" class="serif text-2xl text-[#625875] mt-1">88<span class="text-xs">/100</span></p></div>
+                <div class="text-center border-x border-white/60"><p class="text-[9px] text-[#95899f] tracking-wider">幸運色</p><p id="cardColor" class="text-sm text-[#625875] mt-2">霧紫</p></div>
+                <div class="text-center"><p class="text-[9px] text-[#95899f] tracking-wider">幸運小物</p><p id="cardItem" class="text-sm text-[#625875] mt-2">隨身筆記本</p></div>
+              </div>
+              <div class="mt-6 pt-4 border-t border-white/60 flex justify-between items-end gap-3">
+                <div><p class="text-[9px] text-[#9b90a5]">A NOTE FOR</p><p id="cardFor" class="serif text-sm text-[#625875] mt-1">今天的你</p></div>
+                <p class="text-[9px] tracking-[.16em] text-[#a59aab]">GIVE YOURSELF GRACE ♡</p>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-3 mt-4">
+            <button id="copyBtn" class="flex-1 min-w-[130px] rounded-xl bg-white border border-[#e9e3ee] py-3 text-xs text-[#70647f] hover:bg-[#f0ebf7]">▣　複製文字卡</button>
+            <button id="downloadBtn" class="flex-1 min-w-[130px] rounded-xl bg-[#8877a8] text-white py-3 text-xs hover:bg-[#786794]">↓　下載圖片</button>
+            <button id="redrawBtn" class="rounded-xl bg-white/70 border border-[#e9e3ee] px-4 py-3 text-xs text-[#82778e] hover:bg-white">再抽一次 ↻</button>
+          </div>
+          <p id="actionMessage" class="text-center text-[11px] text-[#8b8195] mt-3 min-h-4" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="journal" class="mt-14 sm:mt-20 grid md:grid-cols-[1fr_1.2fr] gap-6">
+      <div class="glass rounded-[28px] p-6 sm:p-7">
+        <p class="text-[10px] tracking-[.2em] text-[#a092b5]">02 / A MOMENT FOR YOU</p>
+        <h2 class="serif text-xl mt-2">給心情一個位置</h2>
+        <p class="text-xs text-muted mt-2 leading-6">不需要把每一天都過得很好，<br>只要誠實地感受，就已經很棒了。</p>
+        <div class="mt-6 rounded-2xl bg-[#f4eff7] p-4">
+          <p class="text-[10px] text-[#93869f] mb-2">今日想對自己說</p>
+          <p id="affirmation" class="serif text-sm text-[#655a75] leading-7">「我可以按照自己的步調，慢慢成為想成為的人。」</p>
+        </div>
+        <button id="newAffirmation" class="text-xs text-[#8c7ca7] mt-4 hover:text-[#5e5078]">換一句溫柔提醒 ↻</button>
+      </div>
+      <div class="glass rounded-[28px] p-6 sm:p-7">
+        <div class="flex items-center justify-between">
+          <div><p class="text-[10px] tracking-[.2em] text-[#a092b5]">03 / LITTLE JOURNAL</p><h2 class="serif text-xl mt-2">今天的心情足跡</h2></div>
+          <span class="text-xl">📖</span>
+        </div>
+        <div class="flex gap-2 mt-5">
+          <input id="journalInput" maxlength="100" placeholder="寫下一件今天想記住的小事⋯⋯" class="min-w-0 flex-1 rounded-xl bg-white/80 border border-[#e9e3ee] px-4 py-3 text-xs outline-none focus:ring-2 focus:ring-[#d8cdec]">
+          <button id="saveJournal" class="rounded-xl bg-[#e7e0ef] px-4 text-xs text-[#6e607f] hover:bg-[#ddd3ea]">記下</button>
+        </div>
+        <div id="journalList" class="soft-scroll mt-4 max-h-36 overflow-y-auto space-y-2">
+          <p class="text-[11px] text-[#aaa2b0] text-center py-5">你的小小日記，會留在這個瀏覽器裡。</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="text-center pt-14 pb-4">
+      <div class="text-[#b6a8c8] text-lg">✧　☾　✧</div>
+      <p class="serif text-xs tracking-[.2em] text-[#958a9d] mt-3">願你被世界溫柔以待，也記得溫柔對待自己。</p>
+      <p class="text-[9px] text-[#b5aeb9] mt-3">月光來信 · 僅供日常療癒與娛樂參考</p>
+    </footer>
+  </main>
+
+  <script>
+    const fortunes = [
+      {symbol:'🌷',category:'BLOOM IN YOUR OWN TIME',title:'慢慢來，也是一種前進',quote:'你不必急著抵達任何地方。那些看似緩慢的日子，也正在悄悄替你累積力量。',score:92,color:'奶油粉',item:'一束小花',bg:'linear-gradient(135deg,#f5e3e2,#f4eaf1 55%,#e7e9df)'},
+      {symbol:'🌙',category:'TRUST THE QUIET',title:'安靜裡藏著答案',quote:'當世界有點吵，就先回到自己的心裡。你已經擁有足夠的智慧，找到下一個小小方向。',score:86,color:'月光銀',item:'一杯溫熱茶',bg:'linear-gradient(135deg,#e2e5f2,#f0e9f3 55%,#e3e9ed)'},
+      {symbol:'🌱',category:'A FRESH BEGINNING',title:'新的可能正在發芽',quote:'不用一次完成所有事。今天只要向前一小步，就已經為未來的自己打開一扇窗。',score:95,color:'鼠尾草綠',item:'綠色小植物',bg:'linear-gradient(135deg,#e2eee4,#edf0e6 55%,#f5e8e2)'},
+      {symbol:'☀️',category:'LET YOURSELF SHINE',title:'你本來就有光',quote:'別因為偶爾的陰天，就忘記自己曾經多麼明亮。把喜歡的事放進今天，光會慢慢回來。',score:89,color:'暖陽黃',item:'喜歡的歌單',bg:'linear-gradient(135deg,#f5e9cf,#f4e8e4 55%,#eee3f0)'},
+      {symbol:'🦋',category:'CHANGE CAN BE GENTLE',title:'改變不必轟轟烈烈',quote:'你可以一邊害怕，一邊嘗試；一邊不確定，一邊探索。勇敢有時只是願意再給自己一次機會。',score:88,color:'薄霧藍',item:'隨身小筆記',bg:'linear-gradient(135deg,#dfeaf0,#ece8f3 55%,#f2e3e4)'},
+      {symbol:'🍵',category:'REST IS PRODUCTIVE TOO',title:'休息也是重要的事',quote:'你不是一台需要不停運轉的機器。允許自己停下來，能量會在被好好照顧時重新長出來。',score:90,color:'燕麥米',item:'柔軟的小毯子',bg:'linear-gradient(135deg,#eee5d9,#f3e9e7 55%,#e9e5ef)'}
+    ];
+    const affirmations = ['我可以按照自己的步調，慢慢成為想成為的人。','今天不必完美，真實的我就值得被喜歡。','我願意給自己一點耐心，也給好事一點時間。','即使只有一點點進步，也值得為自己感到驕傲。','我可以放下不屬於我的重量，輕輕往前走。','我值得休息、值得快樂，也值得被溫柔對待。'];
+    const $ = id => document.getElementById(id);
+    const today = new Date();
+    $('todayDate').textContent = today.toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
+    let selectedMood = '平靜', currentFortune = null;
+
+    document.querySelectorAll('.mood').forEach(btn => btn.addEventListener('click', () => {
+      document.querySelectorAll('.mood').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active'); selectedMood = btn.dataset.mood;
+    }));
+
+    function drawFortune() {
+      $('emptyState').classList.add('hidden');
+      $('resultWrap').classList.add('hidden');
+      $('loadingState').classList.remove('hidden');
+      $('loadingState').classList.add('flex');
+      $('drawBtn').disabled = true;
+      $('drawLabel').textContent = '✧　正在翻開你的訊息⋯⋯';
+      setTimeout(() => {
+        currentFortune = fortunes[Math.floor(Math.random()*fortunes.length)];
+        const name = $('nameInput').value.trim();
+        $('cardSymbol').textContent = currentFortune.symbol;
+        $('cardCategory').textContent = currentFortune.category;
+        $('cardTitle').textContent = currentFortune.title;
+        $('cardQuote').textContent = currentFortune.quote;
+        $('cardScore').innerHTML = currentFortune.score + '<span class="text-xs">/100</span>';
+        $('cardColor').textContent = currentFortune.color;
+        $('cardItem').textContent = currentFortune.item;
+        $('cardFor').textContent = name ? name + '，今天也辛苦了' : '今天的你';
+        $('cardDate').textContent = today.toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric'}) + ' · ' + selectedMood + '的心情';
+        $('fortuneCard').style.background = currentFortune.bg;
+        $('loadingState').classList.add('hidden');
+        $('loadingState').classList.remove('flex');
+        $('resultWrap').classList.remove('hidden');
+        $('resultWrap').classList.add('drawn');
+        $('drawBtn').disabled = false;
+        $('drawLabel').textContent = '✧　重新抽取今日指引　✧';
+        $('actionMessage').textContent = $('wishInput').value.trim() ? '願這個小小願望，成為你今天前進的方向。' : '這張牌卡，是今天送給你的小小提醒。';
+      }, 1500);
+    }
+    $('drawBtn').addEventListener('click', drawFortune);
+    $('redrawBtn').addEventListener('click', drawFortune);
+
+    function cardText() {
+      if (!currentFortune) return '';
+      const name = $('nameInput').value.trim() || '今天的你';
+      const wish = $('wishInput').value.trim();
+      return `☾ 月光來信｜每日療癒指引\n${today.toLocaleDateString('zh-TW')} · ${name}\n心情：${selectedMood}\n\n${currentFortune.symbol} ${currentFortune.title}\n${currentFortune.quote}\n\n今日能量：${currentFortune.score}/100\n幸運色：${currentFortune.color}\n幸運小物：${currentFortune.item}${wish ? '\n\n今日小願望：' + wish : ''}\n\n願你被世界溫柔以待，也記得溫柔對待自己。`;
+    }
+    $('copyBtn').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(cardText());
+        $('actionMessage').textContent = '已複製！把這份溫柔分享給自己或重要的人 ♡';
+      } catch(e) {
+        const t = document.createElement('textarea'); t.value = cardText(); document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove();
+        $('actionMessage').textContent = '文字卡已複製 ♡';
+      }
+    });
+    $('downloadBtn').addEventListener('click', async () => {
+      if (!currentFortune) return;
+      $('actionMessage').textContent = '正在製作你的專屬小卡⋯⋯';
+      try {
+        const canvas = await html2canvas($('fortuneCard'), {scale:2, backgroundColor:null, useCORS:true});
+        const link = document.createElement('a');
+        link.download = '月光來信-今日療癒小卡.png';
+        link.href = canvas.toDataURL('image/png'); link.click();
+        $('actionMessage').textContent = '小卡已下載，願它陪你度過今天 ♡';
+      } catch(e) { $('actionMessage').textContent = '圖片製作失敗，請改用「複製文字卡」。'; }
+    });
+
+    $('newAffirmation').addEventListener('click', () => {
+      let next = affirmations[Math.floor(Math.random()*affirmations.length)];
+      $('affirmation').textContent = '「' + next + '」';
+    });
+
+    function loadJournal() {
+      const entries = JSON.parse(localStorage.getItem('moonlight-journal') || '[]');
+      const list = $('journalList'); list.innerHTML = '';
+      if (!entries.length) { list.innerHTML = '<p class="text-[11px] text-[#aaa2b0] text-center py-5">你的小小日記，會留在這個瀏覽器裡。</p>'; return; }
+      entries.slice().reverse().forEach(entry => {
+        const item = document.createElement('div');
+        item.className = 'flex gap-3 items-start rounded-xl bg-white/65 px-3 py-2.5';
+        const date = document.createElement('span'); date.className = 'text-[9px] text-[#a69aaf] whitespace-nowrap pt-1'; date.textContent = entry.date;
+        const content = document.createElement('p'); content.className = 'text-xs text-[#71677c] leading-5 break-words'; content.textContent = entry.text;
+        item.append(date,content); list.appendChild(item);
+      });
+    }
+    $('saveJournal').addEventListener('click', () => {
+      const text = $('journalInput').value.trim();
+      if (!text) { $('journalInput').focus(); return; }
+      const entries = JSON.parse(localStorage.getItem('moonlight-journal') || '[]');
+      entries.push({text, date:today.toLocaleDateString('zh-TW',{month:'numeric',day:'numeric'})});
+      localStorage.setItem('moonlight-journal', JSON.stringify(entries.slice(-30)));
+      $('journalInput').value = ''; loadJournal();
+    });
+    $('journalInput').addEventListener('keydown', e => { if (e.key === 'Enter') $('saveJournal').click(); });
+    loadJournal();
+  </script>
+</body>
+</html>
